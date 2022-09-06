@@ -27,21 +27,23 @@ public class User {
     @Column(name = "birth_date")
     private Date birthDate;
 
-    @Column(name = "role_name")
-    private String roleName;
-
+    @Column(name = "admin")
+    private Boolean admin;
+/*
     @OneToMany(mappedBy = "user")
     private ArrayList<Booking> bookings;
 
+ */
+
     public User(){}
 
-    public User(String username, String password, String firstname, String lastname, Date birthDate, String roleName) {
+    public User(String username, String password, String firstname, String lastname, Date birthDate, Boolean admin) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.birthDate = birthDate;
-        this.roleName = roleName;
+        this.admin = admin;
     }
 
     public int getId() {
@@ -89,12 +91,12 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public Boolean getRoleName() {
+        return admin;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRoleName(Boolean admin) {
+        this.admin = admin;
     }
 
     @Override
@@ -106,7 +108,7 @@ public class User {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", birthDate=" + birthDate +
-                ", roleName='" + roleName + '\'' +
+                ", roleName='" + admin + '\'' +
                 '}';
     }
 }

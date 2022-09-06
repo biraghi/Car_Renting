@@ -26,9 +26,12 @@ public class Car {
     @Column(name="type_name")
     private String typeName;
 
+    /*
     @OneToMany(mappedBy = "car")
     private ArrayList<Booking> bookings;
 
+
+     */
     public Car(){}
 
     public Car(String manufacturer, String model, String yearRegistration, String licensePlate, String typeName) {
