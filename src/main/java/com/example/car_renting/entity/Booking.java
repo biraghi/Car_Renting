@@ -5,16 +5,15 @@ import java.util.Date;
 
 @Entity
 public class Booking {
-    @EmbeddedId
-    private BookingKey id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @ManyToOne
-    @MapsId("userId")
     @JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne
-    @MapsId("carId")
     @JoinColumn(name="car_id")
     private Car car;
 
@@ -33,7 +32,7 @@ public class Booking {
         this.finishDate = finishDate;
     }
 
-    public BookingKey getId() {
+    public int getId() {
         return id;
     }
 

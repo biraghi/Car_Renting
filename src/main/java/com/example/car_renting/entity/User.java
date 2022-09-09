@@ -29,11 +29,13 @@ public class User {
 
     @Column(name = "admin")
     private Boolean admin;
-/*
+
+    /*
     @OneToMany(mappedBy = "user")
     private ArrayList<Booking> bookings;
 
- */
+     */
+
 
     public User(){}
 

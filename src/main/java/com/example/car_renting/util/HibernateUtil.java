@@ -1,5 +1,6 @@
 package com.example.car_renting.util;
 
+import com.example.car_renting.entity.Booking;
 import com.example.car_renting.entity.Car;
 import com.example.car_renting.entity.User;
 import org.hibernate.SessionFactory;
@@ -35,6 +36,7 @@ public class HibernateUtil {
 
                 configuration.addAnnotatedClass(User.class);
                 configuration.addAnnotatedClass(Car.class);
+                configuration.addAnnotatedClass(Booking.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

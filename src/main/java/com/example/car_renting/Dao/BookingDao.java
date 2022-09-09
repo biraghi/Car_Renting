@@ -1,18 +1,19 @@
 package com.example.car_renting.Dao;
 
-import com.example.car_renting.entity.User;
+import com.example.car_renting.entity.Booking;
+import com.example.car_renting.entity.Car;
 import com.example.car_renting.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class UserDao {
-    public void saveUser(User user) {
+public class BookingDao {
+    public void saveBooking(Booking booking) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.saveOrUpdate(user);
+            session.saveOrUpdate(booking);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -22,11 +23,9 @@ public class UserDao {
         }
     }
 
-    public List< User > getAllUsers() {
+    public List< Booking > getAllBookings() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from User", User.class).list();
+            return session.createQuery("from Booking", Booking.class).list();
         }
     }
-
-
 }
