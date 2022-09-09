@@ -10,11 +10,11 @@ public class Booking {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="user_id", insertable = false, updatable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="car_id")
+    @JoinColumn(name="car_id", insertable = false, updatable = false)
     private Car car;
 
     @Column(name = "start_date")
