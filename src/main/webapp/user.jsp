@@ -26,5 +26,25 @@
             </c:forEach>
         </table>
     </div>
+    <br>
+    <div class="col-4">
+        <h4>New User</h4>
+        <div class="input-group mb-3 ">
+            <form action="user-servlet" method="post">
+                <p><strong>Firstname</strong></p>
+                <input type="text" class="form-control" name="firstname" placeholder="Firstname" aria-label="Firstname" aria-describedby="basic-addon2"><br>
+                <p><strong>Lastname</strong></p>
+                <input type="text" class="form-control" name="lastname" placeholder="Lastname" aria-label="Lastname" aria-describedby="basic-addon2"><br>
+                <p><strong>Birthdate</strong></p>
+                <input type="date" class="form-control" name="birthdate" aria-describedby="basic-addon2"><br>
+                <p><strong>Username</strong></p>
+                <input type="text" class="form-control" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon2"><br>
+                <p><strong>Password</strong></p>
+                <input type="text" class="form-control" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon2"><br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+
+        </div>
+    </div>
 </body>
 </html>

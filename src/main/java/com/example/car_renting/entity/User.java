@@ -1,8 +1,7 @@
 package com.example.car_renting.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "user")
@@ -25,10 +24,10 @@ public class User {
     private String lastname;
 
     @Column(name = "birth_date")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @Column(name = "admin")
-    private Boolean admin;
+    private boolean admin;
 
     /*
     @OneToMany(mappedBy = "user")
@@ -39,7 +38,7 @@ public class User {
 
     public User(){}
 
-    public User(String username, String password, String firstname, String lastname, Date birthDate, Boolean admin) {
+    public User(String username, String password, String firstname, String lastname, LocalDate birthDate, boolean admin) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -85,19 +84,19 @@ public class User {
         this.lastname = lastname;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 
-    public Boolean getRoleName() {
+    public boolean getRoleName() {
         return admin;
     }
 
-    public void setRoleName(Boolean admin) {
+    public void setRoleName(boolean admin) {
         this.admin = admin;
     }
 

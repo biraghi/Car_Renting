@@ -11,10 +11,10 @@
 <h1><%= "Test" %></h1>
 <br/>
 
-<a href="user-servlet">Visualizza Utenti</a>
-<br>
-<a href="CarServlet">Visualizza Macchine</a>
-<br>
-<a href="BookingServlet">Visualizza Prenotazioni</a>
+<a class="btn btn-primary" href="user-servlet">Visualizza Utenti</a>
+<br><br>
+<a class="btn btn-primary" href="CarServlet">Visualizza Macchine</a>
+<br><br>
+<a class="btn btn-primary" href="BookingServlet">Visualizza Prenotazioni</a>
 </body>
 </html>
