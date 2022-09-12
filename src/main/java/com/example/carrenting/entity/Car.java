@@ -1,6 +1,7 @@
 package com.example.carrenting.entity;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "car")
@@ -17,7 +18,7 @@ public class Car {
     private String model;
 
     @Column(name="year_registration")
-    private String yearRegistration;
+    private LocalDate yearRegistration;
 
     @Column(name="license_plate")
     private String licensePlate;
@@ -33,7 +34,7 @@ public class Car {
      */
     public Car(){}
 
-    public Car(String manufacturer, String model, String yearRegistration, String licensePlate, String typeName) {
+    public Car(String manufacturer, String model, LocalDate yearRegistration, String licensePlate, String typeName) {
         this.manufacturer = manufacturer;
         this.model = model;
         this.yearRegistration = yearRegistration;
@@ -45,6 +46,7 @@ public class Car {
         return id;
     }
 
+    public void setId(int id){this.id = id;}
 
     public String getManufacturer() {
         return manufacturer;
@@ -62,11 +64,11 @@ public class Car {
         this.model = model;
     }
 
-    public String getYearRegistration() {
+    public LocalDate getYearRegistration() {
         return yearRegistration;
     }
 
-    public void setYearRegistration(String yearRegistration) {
+    public void setYearRegistration(LocalDate yearRegistration) {
         this.yearRegistration = yearRegistration;
     }
 

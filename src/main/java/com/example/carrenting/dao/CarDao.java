@@ -27,4 +27,10 @@ public class CarDao {
             return session.createQuery("from Car", Car.class).list();
         }
     }
+
+    public Car getCarById(int id){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Car where id = " + id, Car.class).getSingleResult();
+        }
+    }
 }
