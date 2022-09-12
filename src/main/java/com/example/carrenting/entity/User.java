@@ -1,4 +1,4 @@
-package com.example.car_renting.entity;
+package com.example.carrenting.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -47,6 +47,7 @@ public class User {
         this.admin = admin;
     }
 
+    public void setId(int id){this.id = id;}
     public int getId() {
         return id;
     }

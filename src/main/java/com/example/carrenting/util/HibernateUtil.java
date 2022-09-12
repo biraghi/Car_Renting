@@ -1,8 +1,8 @@
-package com.example.car_renting.util;
+package com.example.carrenting.util;
 
-import com.example.car_renting.entity.Booking;
-import com.example.car_renting.entity.Car;
-import com.example.car_renting.entity.User;
+import com.example.carrenting.entity.Booking;
+import com.example.carrenting.entity.Car;
+import com.example.carrenting.entity.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;

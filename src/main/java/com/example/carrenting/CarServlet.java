@@ -1,9 +1,7 @@
-package com.example.car_renting;
+package com.example.carrenting;
 
-import com.example.car_renting.Dao.CarDao;
-import com.example.car_renting.Dao.UserDao;
-import com.example.car_renting.entity.Car;
-import com.example.car_renting.entity.User;
+import com.example.carrenting.dao.CarDao;
+import com.example.carrenting.entity.Car;
 
 import javax.servlet.*;
 import javax.servlet.http.*;

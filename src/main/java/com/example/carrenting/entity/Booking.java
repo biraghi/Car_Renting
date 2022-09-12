@@ -1,4 +1,4 @@
-package com.example.car_renting.entity;
+package com.example.carrenting.entity;
 
 import javax.persistence.*;
 import java.util.Date;
