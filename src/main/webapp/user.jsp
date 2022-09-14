@@ -46,6 +46,7 @@
                 <th scope="col">Username</th>
                 <th scope="col">Birthdate</th>
                 <th scope="col">Update</th>
+                <th scope="col">Delete</th>
             </tr>
             <c:forEach  var="user" items="${userList}">
                 <tr>
@@ -58,6 +59,13 @@
                             <input type="hidden" name="typeGet" value="updateUser">
                             <input type="hidden" name="id" value="${user.id}">
                             <button class="btn btn-primary" type="submit">Update</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="user-servlet" method="get">
+                            <input type="hidden" name="typeGet" value="deleteUser">
+                            <input type="hidden" name="id" value="${user.id}">
+                            <button class="btn btn-primary" type="submit">Delete</button>
                         </form>
                     </td>
                 </tr>

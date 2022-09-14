@@ -18,6 +18,7 @@ public class UserServlet extends HttpServlet {
     private final UserDao userDao = new UserDao();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        int id;
         String type = request.getParameter("typeGet");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -26,6 +27,14 @@ public class UserServlet extends HttpServlet {
 
 
             case "getUsers":
+                request.setAttribute("userList", getUsers());
+                dispatcher = request.getRequestDispatcher("user.jsp");
+                dispatcher.forward(request, response);
+                break;
+
+            case "deleteUser":
+                id = Integer.parseInt(request.getParameter("id"));
+                userDao.deleteUserById(id);
                 request.setAttribute("userList", getUsers());
                 dispatcher = request.getRequestDispatcher("user.jsp");
                 dispatcher.forward(request, response);
@@ -41,7 +50,7 @@ public class UserServlet extends HttpServlet {
 
 
             case "updateUser":
-                int id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("id"));
                 request.setAttribute("typeGet", "updateUser");
                 request.setAttribute("user", userDao.getUserById(id));
                 dispatcher = request.getRequestDispatcher("formUser.jsp");
