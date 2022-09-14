@@ -45,6 +45,7 @@
       <th scope="col">Type Name</th>
       <th scope="col">Year Registration</th>
       <th scope="col">Update</th>
+      <th scope="col">Delete</th>
     </tr>
     <c:forEach  var="car" items="${carList}">
       <tr>
@@ -58,6 +59,13 @@
             <input type="hidden" name="typeGet" value="updateCar">
             <input type="hidden" name="id" value="${car.id}">
             <button class="btn btn-primary" type="submit">Update</button>
+          </form>
+        </td>
+        <td>
+          <form action="CarServlet" method="get">
+            <input type="hidden" name="typeGet" value="deleteCar">
+            <input type="hidden" name="id" value="${car.id}">
+            <button class="btn btn-primary" type="submit">Delete</button>
           </form>
         </td>
       </tr>

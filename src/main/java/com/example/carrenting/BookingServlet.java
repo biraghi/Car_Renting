@@ -20,6 +20,7 @@ public class BookingServlet extends HttpServlet {
     private final BookingDao bookingDao = new BookingDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id;
         String type = request.getParameter("typeGet");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -28,6 +29,14 @@ public class BookingServlet extends HttpServlet {
 
 
             case "getBookings":
+                request.setAttribute("bookingList", getBookings());
+                dispatcher = request.getRequestDispatcher("booking.jsp");
+                dispatcher.forward(request, response);
+                break;
+
+            case "deleteBooking":
+                id = Integer.parseInt(request.getParameter("id"));
+                bookingDao.deleteBookingById(id);
                 request.setAttribute("bookingList", getBookings());
                 dispatcher = request.getRequestDispatcher("booking.jsp");
                 dispatcher.forward(request, response);
@@ -43,7 +52,7 @@ public class BookingServlet extends HttpServlet {
 
 
             case "updateBooking":
-                int id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("id"));
                 request.setAttribute("typeGet", "updateBooking");
                 request.setAttribute("booking", bookingDao.getBookingById(id));
                 dispatcher = request.getRequestDispatcher("formBooking.jsp");

@@ -3,8 +3,10 @@ package com.example.carrenting.dao;
 import com.example.carrenting.entity.Car;
 import com.example.carrenting.entity.User;
 import com.example.carrenting.util.HibernateUtil;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -38,6 +40,22 @@ public class CarDao {
     public Car getCarByLicensePlate(String licensePlate){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Car where license_plate = '" + licensePlate + "'", Car.class).getSingleResult();
+        }
+    }
+
+    public void deleteCarById(int id){
+        Transaction transaction = null;
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            transaction = session.beginTransaction();
+            Criteria cr = session.createCriteria(Car.class);
+            cr.add(Restrictions.eq("id", id));
+            session.delete(cr.uniqueResult());
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
         }
     }
 }

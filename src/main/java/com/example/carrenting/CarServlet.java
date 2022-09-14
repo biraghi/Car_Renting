@@ -17,6 +17,7 @@ public class CarServlet extends HttpServlet {
     private final CarDao carDao = new CarDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int id;
         String type = request.getParameter("typeGet");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
@@ -25,6 +26,14 @@ public class CarServlet extends HttpServlet {
 
 
             case "getCars":
+                request.setAttribute("carList", getCars());
+                dispatcher = request.getRequestDispatcher("car.jsp");
+                dispatcher.forward(request, response);
+                break;
+
+            case "deleteCar":
+                id = Integer.parseInt(request.getParameter("id"));
+                carDao.deleteCarById(id);
                 request.setAttribute("carList", getCars());
                 dispatcher = request.getRequestDispatcher("car.jsp");
                 dispatcher.forward(request, response);
@@ -40,7 +49,7 @@ public class CarServlet extends HttpServlet {
 
 
             case "updateCar":
-                int id = Integer.parseInt(request.getParameter("id"));
+                id = Integer.parseInt(request.getParameter("id"));
                 request.setAttribute("typeGet", "updateCar");
                 request.setAttribute("car", carDao.getCarById(id));
                 dispatcher = request.getRequestDispatcher("formCar.jsp");

@@ -46,6 +46,7 @@
       <th scope="col">Start Date</th>
       <th scope="col">Finish Date</th>
       <th scope="col">Update</th>
+      <th scope="col">Delete</th>
     </tr>
     <c:forEach  var="booking" items="${bookingList}">
       <tr>
@@ -58,6 +59,13 @@
             <input type="hidden" name="typeGet" value="updateBooking">
             <input type="hidden" name="id" value="${booking.id}">
             <button class="btn btn-primary" type="submit">Update</button>
+          </form>
+        </td>
+        <td>
+          <form action="BookingServlet" method="get">
+            <input type="hidden" name="typeGet" value="deleteBooking">
+            <input type="hidden" name="id" value="${booking.id}">
+            <button class="btn btn-primary" type="submit">Delete</button>
           </form>
         </td>
       </tr>
