@@ -1,7 +1,7 @@
 package com.example.carrenting.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Booking {
@@ -10,27 +10,29 @@ public class Booking {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name="user_id", insertable = false, updatable = false)
+    @JoinColumn(name="user_id")
     private User user;
 
     @ManyToOne
-    @JoinColumn(name="car_id", insertable = false, updatable = false)
+    @JoinColumn(name="car_id")
     private Car car;
 
     @Column(name = "start_date")
-    private Date startDate;
+    private LocalDate startDate;
 
     @Column(name = "finish_date")
-    private Date finishDate;
+    private LocalDate finishDate;
 
     public Booking(){}
 
-    public Booking(User user, Car car, Date startDate, Date finishDate) {
+    public Booking(User user, Car car, LocalDate startDate, LocalDate finishDate) {
         this.user = user;
         this.car = car;
         this.startDate = startDate;
         this.finishDate = finishDate;
     }
+
+    public void setId(int id){this.id = id;}
 
     public int getId() {
         return id;
@@ -52,19 +54,19 @@ public class Booking {
         this.car = car;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getFinishDate() {
+    public LocalDate getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(Date finishDate) {
+    public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
     }
 

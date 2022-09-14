@@ -35,19 +35,31 @@
 
 <h1>Booking</h1></br>
 <div class="col-4">
+  <form action="BookingServlet" method="get">
+    <input type="hidden" name="typeGet" value="addBooking">
+    <button class="btn btn-primary" type="submit">New Booking</button>
+  </form>
   <table class="table table-striped table-bordered table-sm">
     <tr>
-      <th scope="col">User Firstname</th>
+      <th scope="col">User Username</th>
       <th scope="col">Car License Plate</th>
       <th scope="col">Start Date</th>
       <th scope="col">Finish Date</th>
+      <th scope="col">Update</th>
     </tr>
     <c:forEach  var="booking" items="${bookingList}">
       <tr>
-        <td>${booking.user.firstname}</td>
+        <td>${booking.user.username}</td>
         <td>${booking.car.licensePlate}</td>
         <td>${booking.startDate}</td>
         <td>${booking.finishDate}</td>
+        <td>
+          <form action="BookingServlet" method="get">
+            <input type="hidden" name="typeGet" value="updateBooking">
+            <input type="hidden" name="id" value="${booking.id}">
+            <button class="btn btn-primary" type="submit">Update</button>
+          </form>
+        </td>
       </tr>
     </c:forEach>
   </table>

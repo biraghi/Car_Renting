@@ -1,6 +1,7 @@
 package com.example.carrenting.dao;
 
 import com.example.carrenting.entity.Car;
+import com.example.carrenting.entity.User;
 import com.example.carrenting.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -31,6 +32,12 @@ public class CarDao {
     public Car getCarById(int id){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("from Car where id = " + id, Car.class).getSingleResult();
+        }
+    }
+
+    public Car getCarByLicensePlate(String licensePlate){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Car where license_plate = '" + licensePlate + "'", Car.class).getSingleResult();
         }
     }
 }
