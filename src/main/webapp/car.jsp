@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dati</a>
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Database</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="user-servlet?typeGet=getUsers">Users</a></li>
             <li><a class="dropdown-item" href="CarServlet?typeGet=getCars">Cars</a></li>

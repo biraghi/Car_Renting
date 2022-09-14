@@ -20,7 +20,7 @@
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Dati</a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Database</a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="user-servlet?typeGet=getUsers">Users</a></li>
                             <li><a class="dropdown-item" href="CarServlet?typeGet=getCars">Cars</a></li>
@@ -34,24 +34,12 @@
 </div>
 <br>
 
-<h1><%= "Test" %></h1>
+<h1><%= "Car Renting" %></h1>
 <br/>
-<form action="user-servlet" method="get">
-    <input type="hidden" name="typeGet" value="getUsers">
-    <button class="btn btn-primary" type="submit">See Users</button>
+<form action="dati.jsp" method="get">
+    <button class="btn btn-primary" type="submit">Database</button>
 </form>
 <br><br>
-
-<form action="CarServlet" method="get">
-    <input type="hidden" name="typeGet" value="getCars">
-    <button class="btn btn-primary" type="submit">See Cars</button>
-</form>
-<br><br>
-
-<form action="BookingServlet" method="get">
-    <input type="hidden" name="typeGet" value="getBookings">
-    <button class="btn btn-primary" type="submit">See Bookings</button>
-</form>
 
 </body>
 </html>
