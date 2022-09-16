@@ -6,7 +6,7 @@
   <script src="webjars/bootstrap/5.2.0/js/bootstrap.min.js"></script>
   <script src="webjars/bootstrap/5.2.0/js/bootstrap.bundle.js"></script>
   <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.2.0/css/bootstrap.min.css"/>
-  <title>JSP - Hello World</title>
+  <title>Car Renting</title>
 </head>
 <body>
 
@@ -34,34 +34,19 @@
 </div>
 <br>
 
-<h1>Database</h1>
+<h1>Auto Disponibili</h1>
+<p>Inserire la data di inizio e di fine del noleggio</p>
 <br/>
-<div class="row">
-  <div class="col-sm-1">
-    <form action="user-servlet" method="get">
-      <input type="hidden" name="typeGet" value="getUsers">
-      <button class="btn btn-primary" type="submit">See Users</button>
-    </form>
-  </div>
-
-  <div class="col-sm-1">
-    <form action="CarServlet" method="get">
-      <input type="hidden" name="typeGet" value="getCars">
-      <button class="btn btn-primary" type="submit">See Cars</button>
-    </form>
-  </div>
-
-  <div class="col-sm-1">
-    <form action="BookingServlet" method="get">
-      <input type="hidden" name="typeGet" value="getBookings">
-      <button class="btn btn-primary" type="submit">See Bookings</button>
-    </form>
-  </div>
-
-
-
+<div class="input-group mb-3 ">
+  <form action="CarServlet" method="get">
+    <p><strong>Start Date</strong></p>
+    <input type="date" class="form-control" name="startDate"  aria-describedby="basic-addon2"><br>
+    <p><strong>Finish Date</strong></p>
+    <input type="date" class="form-control" name="finishDate"  aria-describedby="basic-addon2"><br>
+    <input type="hidden" name="typeGet" value="getCarsDisp">
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
 </div>
-
 
 </body>
 </html>

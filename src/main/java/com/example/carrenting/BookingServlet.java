@@ -2,6 +2,7 @@ package com.example.carrenting;
 
 import com.example.carrenting.dao.BookingDao;
 import com.example.carrenting.dao.CarDao;
+import com.example.carrenting.dao.Dao;
 import com.example.carrenting.dao.UserDao;
 import com.example.carrenting.entity.Booking;
 import com.example.carrenting.entity.Car;
@@ -11,13 +12,22 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet(name = "BookingServlet", value = "/BookingServlet")
 public class BookingServlet extends HttpServlet {
-    private final BookingDao bookingDao = new BookingDao();
+    private final Dao dao = new Dao();
+    private final BookingDao bookingDao = dao.getBookingDao();
+    private final CarDao carDao = dao.getCarDao();
+    private final UserDao userDao = dao.getUserDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id;
@@ -74,8 +84,11 @@ public class BookingServlet extends HttpServlet {
 
         try{
             bookingDao.saveBooking(setBooking(request, type));
+            out.print("<div class=\"alert alert-success\" role=\"alert\">\n" +
+                    "    <strong>Success!</strong>\n" +
+                    "</div>");
             dispatcher=request.getRequestDispatcher("formBooking.jsp");
-            dispatcher.forward(request, response);
+            dispatcher.include(request, response);
         }
         catch (Exception ex){
             out.print("<div class=\"alert alert-danger\" role=\"alert\">\n" +
@@ -93,8 +106,6 @@ public class BookingServlet extends HttpServlet {
     }
 
     public Booking setBooking(HttpServletRequest request, String type){
-        UserDao userDao = new UserDao();
-        CarDao carDao = new CarDao();
         Booking booking = new Booking();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);

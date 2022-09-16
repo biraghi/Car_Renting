@@ -1,6 +1,7 @@
 package com.example.carrenting;
 
 import com.example.carrenting.dao.CarDao;
+import com.example.carrenting.dao.Dao;
 import com.example.carrenting.entity.Car;
 
 import javax.servlet.*;
@@ -11,10 +12,12 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 @WebServlet(name = "CarServlet", value = "/CarServlet")
 public class CarServlet extends HttpServlet {
-    private final CarDao carDao = new CarDao();
+    private final Dao dao = new Dao();
+    private final CarDao carDao = dao.getCarDao();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id;
@@ -28,6 +31,15 @@ public class CarServlet extends HttpServlet {
             case "getCars":
                 request.setAttribute("carList", getCars());
                 dispatcher = request.getRequestDispatcher("car.jsp");
+                dispatcher.forward(request, response);
+                break;
+
+            case "getCarsDisp":
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.ITALY);
+                LocalDate startDate = LocalDate.parse(request.getParameter("startDate"), formatter);
+                LocalDate finishDate = LocalDate.parse(request.getParameter("finishDate"), formatter);
+                request.setAttribute("carsDisp", getCarsDisp(startDate, finishDate));
+                dispatcher = request.getRequestDispatcher("autoDisponibili.jsp");
                 dispatcher.forward(request, response);
                 break;
 
@@ -71,8 +83,11 @@ public class CarServlet extends HttpServlet {
 
         try{
             carDao.saveCar(setCar(request, type));
+            out.print("<div class=\"alert alert-success\" role=\"alert\">\n" +
+                    "    <strong>Success!</strong>\n" +
+                    "</div>");
             dispatcher=request.getRequestDispatcher("formCar.jsp");
-            dispatcher.forward(request, response);
+            dispatcher.include(request, response);
         }
         catch (Exception ex){
             out.print("<div class=\"alert alert-danger\" role=\"alert\">\n" +
@@ -89,9 +104,14 @@ public class CarServlet extends HttpServlet {
         return cars;
     }
 
+    public List<Car> getCarsDisp(LocalDate start, LocalDate finish){
+        List<Car> cars = carDao.getCarDisponibili(start, finish);
+        return cars;
+    }
+
     public Car setCar(HttpServletRequest request, String type){
         Car car = new Car();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.ITALY);
         LocalDate yearRegistration = LocalDate.parse(request.getParameter("yearRegistration"), formatter);
         if(type.equals("updateCar")){
             int id = Integer.parseInt(request.getParameter("id"));

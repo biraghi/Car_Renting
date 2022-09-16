@@ -7,8 +7,12 @@ import com.example.carrenting.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BookingDao {
@@ -53,4 +57,6 @@ public class BookingDao {
             e.printStackTrace();
         }
     }
+
+
 }

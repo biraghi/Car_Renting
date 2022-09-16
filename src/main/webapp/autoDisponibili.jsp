@@ -6,10 +6,9 @@
     <script src="webjars/bootstrap/5.2.0/js/bootstrap.min.js"></script>
     <script src="webjars/bootstrap/5.2.0/js/bootstrap.bundle.js"></script>
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/5.2.0/css/bootstrap.min.css"/>
-    <title>Car Renting</title>
+    <title>Auto Disponibili</title>
 </head>
 <body>
-
 <div>
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container-fluid">
@@ -34,14 +33,28 @@
 </div>
 <br>
 
-<h1>Car Renting</h1>
+<h1>Auto Disponibili</h1>
 <br/>
-<form action="dati.jsp" method="get">
-    <button class="btn btn-primary" type="submit">Database</button>
-</form>
-<br><br>
-<form action="rangeData.jsp" method="get">
-    <button class="btn btn-primary" type="submit">Auto Disponibili</button>
-</form>
+<div class="col-4">
+    <table class="table table-striped table-bordered table-sm">
+        <tr>
+            <th scope="col">License Plate</th>
+            <th scope="col">Manufacturer</th>
+            <th scope="col">Model</th>
+            <th scope="col">Type Name</th>
+            <th scope="col">Year Registration</th>
+        </tr>
+        <c:forEach  var="car" items="${carsDisp}">
+            <tr>
+                <td>${car.licensePlate}</td>
+                <td>${car.manufacturer}</td>
+                <td>${car.model}</td>
+                <td>${car.typeName}</td>
+                <td>${car.yearRegistration}</td>
+            </tr>
+        </c:forEach>
+    </table>
+</div>
+
 </body>
 </html>

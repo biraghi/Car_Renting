@@ -1,5 +1,6 @@
 package com.example.carrenting;
 
+import com.example.carrenting.dao.Dao;
 import com.example.carrenting.dao.UserDao;
 import com.example.carrenting.entity.User;
 
@@ -7,6 +8,7 @@ import java.io.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -15,7 +17,8 @@ import javax.servlet.annotation.*;
 
 @WebServlet(name = "userServlet", value = "/user-servlet")
 public class UserServlet extends HttpServlet {
-    private final UserDao userDao = new UserDao();
+    private final Dao dao = new Dao();
+    private final UserDao userDao = dao.getUserDao();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         int id;
@@ -74,8 +77,11 @@ public class UserServlet extends HttpServlet {
 
         try{
             userDao.saveUser(setUser(request, type));
+            out.print("<div class=\"alert alert-success\" role=\"alert\">\n" +
+                    "    <strong>Success!</strong>\n" +
+                    "</div>");
             dispatcher=request.getRequestDispatcher("formUser.jsp");
-            dispatcher.forward(request, response);
+            dispatcher.include(request, response);
         }
         catch (Exception ex){
             out.print("<div class=\"alert alert-danger\" role=\"alert\">\n" +
@@ -95,7 +101,7 @@ public class UserServlet extends HttpServlet {
 
     public User setUser(HttpServletRequest request, String type){
         User user = new User();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd").withLocale(Locale.ITALY);
         LocalDate birthdate = LocalDate.parse(request.getParameter("birthdate"), formatter);
         if(type.equals("updateUser")){
             int id = Integer.parseInt(request.getParameter("id"));

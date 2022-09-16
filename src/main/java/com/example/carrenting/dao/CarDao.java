@@ -1,13 +1,18 @@
 package com.example.carrenting.dao;
 
+import com.example.carrenting.entity.Booking;
 import com.example.carrenting.entity.Car;
 import com.example.carrenting.entity.User;
 import com.example.carrenting.util.HibernateUtil;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.LogicalExpression;
 import org.hibernate.criterion.Restrictions;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CarDao {
@@ -58,4 +63,24 @@ public class CarDao {
             e.printStackTrace();
         }
     }
+
+    public ArrayList<Car> getCarDisponibili(LocalDate startDate, LocalDate finishDate){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria cr = session.createCriteria(Booking.class);
+            Criterion start = Restrictions.le("startDate", finishDate);
+            Criterion last = Restrictions.ge("finishDate", startDate);
+
+            cr.add(Restrictions.not(Restrictions.and(start, last)));
+
+            List<Booking> bookings = cr.list();
+            ArrayList<Car> carsDisp = new ArrayList<>();
+            for (Booking booking : bookings) {
+                carsDisp.add(booking.getCar());
+            }
+
+            return carsDisp;
+
+        }
+    }
+
 }
