@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CarDao {
+    private Dao dao = new Dao();
+    private BookingDao bookingDao= dao.getBookingDao();
     public void saveCar(Car car) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -71,12 +73,37 @@ public class CarDao {
             Criterion last = Restrictions.ge("finishDate", startDate);
 
             cr.add(Restrictions.not(Restrictions.and(start, last)));
-
+            //Prenotazioni disponibili
             List<Booking> bookings = cr.list();
-            ArrayList<Car> carsDisp = new ArrayList<>();
-            for (Booking booking : bookings) {
-                carsDisp.add(booking.getCar());
+            //Tutte le prenotazioni
+            List<Booking> allBookings = bookingDao.getAllBookings();
+            //Tutti gli ID delle macchine prenotate
+            ArrayList<Integer>bookingIdCars = new ArrayList<>();
+            for (Booking ob : allBookings) {
+                bookingIdCars.add(ob.getCar().getId());
             }
+            //Tutte le Macchine
+            List<Car>allCars = getAllCars();
+            //Tutte le macchine disponibili
+            ArrayList<Car> carsDisp = new ArrayList<>();
+
+            //Aggiungo le macchine non prenotate
+            for (Car ob : allCars) {
+                if (!bookingIdCars.contains(ob.getId())) {
+                    carsDisp.add(ob);
+                }
+            }
+            //Aggiungo macchine prenotate disponibili
+            if (!bookings.isEmpty()){
+                for (Booking booking : bookings) {
+                    carsDisp.add(booking.getCar());
+                }
+            }
+
+
+
+
+
 
             return carsDisp;
 
