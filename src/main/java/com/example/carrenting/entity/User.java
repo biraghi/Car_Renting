@@ -93,11 +93,11 @@ public class User {
         this.birthDate = birthDate;
     }
 
-    public boolean getRoleName() {
+    public boolean getAdmin() {
         return admin;
     }
 
-    public void setRoleName(boolean admin) {
+    public void setAdmin(boolean admin) {
         this.admin = admin;
     }
 
@@ -110,7 +110,7 @@ public class User {
                 ", firstname='" + firstname + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", birthDate=" + birthDate +
-                ", roleName='" + admin + '\'' +
+                ", admin='" + admin + '\'' +
                 '}';
     }
 }

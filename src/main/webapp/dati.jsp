@@ -19,6 +19,7 @@
       </button>
       <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
+          <li><a class="nav-link" href="LoginServlet?typeGet=logout">Logout</a></li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Database</a>
             <ul class="dropdown-menu">
@@ -40,6 +41,9 @@
   <div class="col-sm-1">
     <form action="user-servlet" method="get">
       <input type="hidden" name="typeGet" value="getUsers">
+      <c:set>
+        <input type="hidden" name="login" value="${login}">
+      </c:set>
       <button class="btn btn-primary" type="submit">See Users</button>
     </form>
   </div>

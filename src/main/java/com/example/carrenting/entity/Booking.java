@@ -26,6 +26,11 @@ public class Booking {
     @Column(name = "finish_date")
     private LocalDate finishDate;
 
+    @Column(name="approve")
+    private boolean approve;
+
+
+
     public Booking(){}
 
     public Booking(User user, Car car, LocalDate startDate, LocalDate finishDate) {
@@ -71,6 +76,14 @@ public class Booking {
 
     public void setFinishDate(LocalDate finishDate) {
         this.finishDate = finishDate;
+    }
+
+    public boolean isApprove() {
+        return approve;
+    }
+
+    public void setApprove(boolean approve) {
+        this.approve = approve;
     }
 
     @Override

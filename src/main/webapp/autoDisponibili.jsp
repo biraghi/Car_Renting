@@ -18,6 +18,7 @@
             </button>
             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                 <ul class="navbar-nav">
+                    <li><a class="nav-link" href="LoginServlet?typeGet=logout">Logout</a></li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Database</a>
                         <ul class="dropdown-menu">
