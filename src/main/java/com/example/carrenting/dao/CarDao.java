@@ -9,11 +9,16 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.LogicalExpression;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.query.Query;
+import org.hibernate.transform.DistinctRootEntityResultTransformer;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CarDao {
     private Dao dao = new Dao();
@@ -68,42 +73,28 @@ public class CarDao {
 
     public ArrayList<Car> getCarDisponibili(LocalDate startDate, LocalDate finishDate){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Criteria cr = session.createCriteria(Booking.class);
+            Criteria cr = session.createCriteria(Car.class);
+            Criteria crBooking = cr.createCriteria("bookings");
             Criterion start = Restrictions.le("startDate", finishDate);
             Criterion last = Restrictions.ge("finishDate", startDate);
+            Criterion app = Restrictions.eq("approve", true);
 
-            cr.add(Restrictions.not(Restrictions.and(start, last)));
-            //Prenotazioni disponibili
-            List<Booking> bookings = cr.list();
-            //Tutte le prenotazioni
-            List<Booking> allBookings = bookingDao.getAllBookings();
-            //Tutti gli ID delle macchine prenotate
-            ArrayList<Integer>bookingIdCars = new ArrayList<>();
-            for (Booking ob : allBookings) {
-                bookingIdCars.add(ob.getCar().getId());
-            }
+            crBooking.add(Restrictions.and(Restrictions.and(start, last),app));
+            //Prenotazioni non disponibili
+            List<Car> bookings = cr.list();
             //Tutte le Macchine
             List<Car>allCars = getAllCars();
             //Tutte le macchine disponibili
+            Set<Car> carSet = new HashSet<>();
             ArrayList<Car> carsDisp = new ArrayList<>();
-
-            //Aggiungo le macchine non prenotate
-            for (Car ob : allCars) {
-                if (!bookingIdCars.contains(ob.getId())) {
-                    carsDisp.add(ob);
+            for (Car car : allCars) {
+                for (Car ob : bookings) {
+                    if (ob.getId() != car.getId()){
+                        carSet.add(car);
+                    }
                 }
             }
-            //Aggiungo macchine prenotate disponibili
-            if (!bookings.isEmpty()){
-                for (Booking booking : bookings) {
-                    carsDisp.add(booking.getCar());
-                }
-            }
-
-
-
-
-
+            carsDisp.addAll(carSet);
 
             return carsDisp;
 

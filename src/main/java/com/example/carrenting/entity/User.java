@@ -1,7 +1,10 @@
 package com.example.carrenting.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -29,11 +32,11 @@ public class User {
     @Column(name = "admin")
     private boolean admin;
 
-    /*
-    @OneToMany(mappedBy = "user")
-    private ArrayList<Booking> bookings;
 
-     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "user")
+    private List<Booking> bookings;
+
 
 
     public User(){}
