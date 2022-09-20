@@ -17,6 +17,12 @@
   </c:if>
 </head>
 <body>
+<c:if test="${sessionScope.login.admin}">
+  <c:set var="ad" scope="page" value="Admin"></c:set>
+</c:if>
+<c:if test="${!sessionScope.login.admin}">
+  <c:set var="ad" scope="page" value="Customer"></c:set>
+</c:if>
 <div>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
@@ -35,6 +41,7 @@
               <li><a class="dropdown-item" href="BookingServlet?typeGet=getBookings">Bookings</a></li>
             </ul>
           </li>
+          <li><a class='nav-link text-light'><c:out value="Bentornato ${sessionScope.login.firstname} ${sessionScope.login.lastname}(${ad})"></c:out></a></li>
         </ul>
       </div>
     </div>
@@ -59,14 +66,13 @@
   <div class="input-group mb-3 ">
     <form action="BookingServlet" method="post">
       <input type="hidden" class="form-control" value="${sessionScope.login.username}" name="username" placeholder="User Username" aria-label="User Username" aria-describedby="basic-addon2"><br>
-      <p><strong>Car License Plate</strong></p>
-      <input type="text" class="form-control" value="${booking.car.licensePlate}" name="licensePlate" placeholder="Car License Plate" aria-label="Car License Plate" aria-describedby="basic-addon2"><br>
-      <p><strong>Start Date</strong></p>
-      <input type="date" class="form-control" value="${booking.startDate}" name="startDate"  aria-describedby="basic-addon2"><br>
-      <p><strong>Finish Date</strong></p>
-      <input type="date" class="form-control" value="${booking.finishDate}" name="finishDate"  aria-describedby="basic-addon2"><br>
+        <p><strong>Car License Plate</strong></p>
+        <input type="text" class="form-control" <c:if test="${typeGet.equals('addBookingWithLicense')}">readonly value="${licensePlate}"</c:if> name="licensePlate" placeholder="Car License Plate" aria-label="Car License Plate" aria-describedby="basic-addon2"><br>
+        <p><strong>Start Date</strong></p>
+        <input type="date" class="form-control" <c:if test="${typeGet.equals('addBookingWithLicense')}">readonly value="${startDate}"</c:if> name="startDate"  aria-describedby="basic-addon2"><br>
+        <p><strong>Finish Date</strong></p>
+        <input type="date" class="form-control" <c:if test="${typeGet.equals('addBookingWithLicense')}">readonly value="${finishDate}"</c:if> name="finishDate"  aria-describedby="basic-addon2"><br>
       <input type="hidden" name="typePost" value="${typeGet}">
-      <input type="hidden" name="id" value="${booking.id}">
       <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 

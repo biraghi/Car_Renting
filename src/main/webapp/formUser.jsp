@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
 <html>
 <head>
   <script src="webjars/bootstrap/5.2.0/js/bootstrap.min.js"></script>
@@ -16,6 +17,12 @@
   </c:if>
 </head>
 <body>
+<c:if test="${sessionScope.login.admin}">
+  <c:set var="ad" scope="page" value="Admin"></c:set>
+</c:if>
+<c:if test="${!sessionScope.login.admin}">
+  <c:set var="ad" scope="page" value="Customer"></c:set>
+</c:if>
 <div>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <div class="container-fluid">
@@ -34,6 +41,7 @@
               <li><a class="dropdown-item" href="BookingServlet?typeGet=getBookings">Bookings</a></li>
             </ul>
           </li>
+          <li><a class='nav-link text-light'><c:out value="Bentornato ${sessionScope.login.firstname} ${sessionScope.login.lastname}(${ad})"></c:out></a></li>
         </ul>
       </div>
     </div>

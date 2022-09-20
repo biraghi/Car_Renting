@@ -72,6 +72,52 @@ public class CarDao {
     }
 
     public ArrayList<Car> getCarDisponibili(LocalDate startDate, LocalDate finishDate){
+            List<Car> carBooked = queryPrenotazioniNonDisponibili(startDate, finishDate);
+            //Tutte le Macchine
+            List<Car>allCars = getAllCars();
+            //Tutte le macchine disponibili
+            Set<Car> carSet = new HashSet<>();
+            ArrayList<Car> carsDisp = new ArrayList<>();
+            if (carBooked.isEmpty()) {
+                carSet.addAll(allCars);
+            }
+            for (Car car : allCars) {
+                for (Car ob : carBooked) {
+                    if (ob.getId() != car.getId()){
+                        carSet.add(car);
+                    }
+                }
+            }
+            carsDisp.addAll(carSet);
+
+            return carsDisp;
+    }
+
+    public boolean verificaDate(LocalDate startDate, LocalDate finishDate, String licensePlate){
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            Criteria cr = session.createCriteria(Car.class);
+            Criteria crBooking = cr.createCriteria("bookings");
+            Criterion start = Restrictions.le("startDate", finishDate);
+            Criterion last = Restrictions.ge("finishDate", startDate);
+            Criterion app = Restrictions.eq("approve", true);
+            Criterion license = Restrictions.eq("licensePlate", licensePlate);
+
+            crBooking.add(Restrictions.and(Restrictions.and(start, last),app));
+            cr.add(license);
+            //Prenotazioni non disponibili
+            List<Car> bookings = cr.list();
+            if(bookings.isEmpty()){
+                return true;
+            }
+            else{
+                return false;
+            }
+
+
+        }
+    }
+
+    public List<Car> queryPrenotazioniNonDisponibili(LocalDate startDate, LocalDate finishDate){
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Criteria cr = session.createCriteria(Car.class);
             Criteria crBooking = cr.createCriteria("bookings");
@@ -81,23 +127,9 @@ public class CarDao {
 
             crBooking.add(Restrictions.and(Restrictions.and(start, last),app));
             //Prenotazioni non disponibili
-            List<Car> bookings = cr.list();
-            //Tutte le Macchine
-            List<Car>allCars = getAllCars();
-            //Tutte le macchine disponibili
-            Set<Car> carSet = new HashSet<>();
-            ArrayList<Car> carsDisp = new ArrayList<>();
-            for (Car car : allCars) {
-                for (Car ob : bookings) {
-                    if (ob.getId() != car.getId()){
-                        carSet.add(car);
-                    }
-                }
-            }
-            carsDisp.addAll(carSet);
+            List<Car> bookings = cr.setResultTransformer(DistinctRootEntityResultTransformer.INSTANCE).list();
 
-            return carsDisp;
-
+            return bookings;
         }
     }
 
